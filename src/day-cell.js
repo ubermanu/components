@@ -233,7 +233,7 @@ export class DayCell extends LitElement {
         break;
       case "Enter":
       case " ":
-        this.grid?.select(this);
+        this._onClick();
         break;
     }
   }
