@@ -1,5 +1,4 @@
 import { css, html, LitElement } from 'lit'
-import './DayGridItem.js'
 
 /**
  * Implements an accessible day grid.
