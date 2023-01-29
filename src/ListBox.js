@@ -94,20 +94,6 @@ export class ListBox extends LitElement {
       ?.focus()
   }
 
-  /**
-   * Updates the element with additional attributes.
-   */
-  requestUpdate() {
-    super.requestUpdate(...arguments)
-
-    // Set the 'empty' attribute if there are no items.
-    if (!this.selectedItems?.length) {
-      this.setAttribute('empty', '')
-    } else {
-      this.removeAttribute('empty')
-    }
-  }
-
   createRenderRoot() {
     return this
   }
