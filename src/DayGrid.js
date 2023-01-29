@@ -1,5 +1,5 @@
-import { css, html, LitElement } from "lit";
-import "./DayGridItem.js";
+import { css, html, LitElement } from 'lit'
+import './DayGridItem.js'
 
 /**
  * Implements an accessible day grid.
@@ -29,23 +29,23 @@ export class DayGrid extends LitElement {
        * 6 = Saturday
        * 7 = Sunday
        */
-      startDay: { type: Number, reflect: true },
-    };
+      startDay: { type: Number, reflect: true }
+    }
   }
 
   constructor() {
-    super();
+    super()
 
     // The current month and year are set to the current date.
-    const today = new Date();
-    this.month = today.getMonth();
-    this.year = today.getFullYear();
+    const today = new Date()
+    this.month = today.getMonth()
+    this.year = today.getFullYear()
 
     // The start day is set according to the current locale.
     // If the locale is not supported, it will default to Monday.
     // TODO: Check polyfill support for Intl.Locale.
-    const locale = new Intl.Locale(this.lang);
-    this.startDay = locale?.weekInfo?.firstDay ?? 1;
+    const locale = new Intl.Locale(this.lang)
+    this.startDay = locale?.weekInfo?.firstDay ?? 1
   }
 
   /**
@@ -53,7 +53,7 @@ export class DayGrid extends LitElement {
    * @returns {string}
    */
   get lang() {
-    return this.getAttribute("lang") || document.documentElement.lang || "en";
+    return this.getAttribute('lang') || document.documentElement.lang || 'en'
   }
 
   /**
@@ -63,11 +63,11 @@ export class DayGrid extends LitElement {
    * @returns {*[]}
    */
   get weekdays() {
-    const weekdays = [];
+    const weekdays = []
     for (let i = this.startDay; i < this.startDay + 7; i++) {
-      weekdays.push(i % 7);
+      weekdays.push(i % 7)
     }
-    return weekdays;
+    return weekdays
   }
 
   /**
@@ -78,17 +78,17 @@ export class DayGrid extends LitElement {
    */
   previousMonth() {
     if (this.year === -1 || this.month === -1) {
-      return;
+      return
     }
 
     if (this.month === 0) {
-      this.month = 11;
-      this.year--;
+      this.month = 11
+      this.year--
     } else {
-      this.month--;
+      this.month--
     }
 
-    this.requestUpdate();
+    this.requestUpdate()
   }
 
   /**
@@ -99,17 +99,17 @@ export class DayGrid extends LitElement {
    */
   nextMonth() {
     if (this.year === -1 || this.month === -1) {
-      return;
+      return
     }
 
     if (this.month === 11) {
-      this.month = 0;
-      this.year++;
+      this.month = 0
+      this.year++
     } else {
-      this.month++;
+      this.month++
     }
 
-    this.requestUpdate();
+    this.requestUpdate()
   }
 
   /**
@@ -118,11 +118,11 @@ export class DayGrid extends LitElement {
    */
   previousYear() {
     if (this.year === -1) {
-      return;
+      return
     }
 
-    this.year--;
-    this.requestUpdate();
+    this.year--
+    this.requestUpdate()
   }
 
   /**
@@ -131,11 +131,11 @@ export class DayGrid extends LitElement {
    */
   nextYear() {
     if (this.year === -1) {
-      return;
+      return
     }
 
-    this.year++;
-    this.requestUpdate();
+    this.year++
+    this.requestUpdate()
   }
 
   /**
@@ -147,65 +147,49 @@ export class DayGrid extends LitElement {
    * @returns {Array}
    */
   getDaysData() {
-    const days = [];
+    const days = []
 
     if (this.year === -1 || this.month === -1) {
-      return days;
+      return days
     }
 
     // Add the days of the previous month.
-    const firstDay = new Date(this.year, this.month, 1);
-    const lastDayOfPreviousMonth = new Date(this.year, this.month, 0);
+    const firstDay = new Date(this.year, this.month, 1)
+    const lastDayOfPreviousMonth = new Date(this.year, this.month, 0)
 
     const previousMonthDaysToAdd =
-      firstDay.getDay() - this.startDay < 0
-        ? firstDay.getDay() - this.startDay + 7
-        : firstDay.getDay() - this.startDay;
+      firstDay.getDay() - this.startDay < 0 ? firstDay.getDay() - this.startDay + 7 : firstDay.getDay() - this.startDay
 
     for (let i = previousMonthDaysToAdd; i > 0; i--) {
       days.push({
-        date: new Date(
-          this.year,
-          this.month - 1,
-          lastDayOfPreviousMonth.getDate() - i + 1
-        ),
+        date: new Date(this.year, this.month - 1, lastDayOfPreviousMonth.getDate() - i + 1),
         disabled: true,
-        selected: this._selectedDates.includes(
-          new Date(
-            this.year,
-            this.month - 1,
-            lastDayOfPreviousMonth.getDate() - i + 1
-          ).toISOString()
-        ),
-      });
+        selected: this._selectedDates.includes(new Date(this.year, this.month - 1, lastDayOfPreviousMonth.getDate() - i + 1).toISOString())
+      })
     }
 
-    const lastDay = new Date(this.year, this.month + 1, 0);
+    const lastDay = new Date(this.year, this.month + 1, 0)
 
     // Add the days of the current month.
     for (let i = 1; i <= lastDay.getDate(); i++) {
       days.push({
         date: new Date(this.year, this.month, i),
         disabled: false,
-        selected: this._selectedDates.includes(
-          new Date(this.year, this.month, i).toISOString()
-        ),
-      });
+        selected: this._selectedDates.includes(new Date(this.year, this.month, i).toISOString())
+      })
     }
 
     // Add the days of the next month.
-    const nextMonthDaysToAdd = 42 - days.length;
+    const nextMonthDaysToAdd = 42 - days.length
     for (let i = 1; i <= nextMonthDaysToAdd; i++) {
       days.push({
         date: new Date(this.year, this.month + 1, i),
         disabled: true,
-        selected: this._selectedDates.includes(
-          new Date(this.year, this.month + 1, i).toISOString()
-        ),
-      });
+        selected: this._selectedDates.includes(new Date(this.year, this.month + 1, i).toISOString())
+      })
     }
 
-    return days;
+    return days
   }
 
   /**
@@ -213,14 +197,14 @@ export class DayGrid extends LitElement {
    * @type {string[]}
    * @private
    */
-  _selectedDates = [];
+  _selectedDates = []
 
   /**
    * Returns the selected dates.
    * @returns {string[]}
    */
   get selectedDates() {
-    return this._selectedDates;
+    return this._selectedDates
   }
 
   /**
@@ -228,7 +212,7 @@ export class DayGrid extends LitElement {
    * @returns {NodeListOf<Element>}
    */
   get days() {
-    return this.querySelectorAll("day-grid-item");
+    return this.querySelectorAll('day-grid-item')
   }
 
   /**
@@ -236,31 +220,29 @@ export class DayGrid extends LitElement {
    * @returns {Element[]}
    */
   get selectedDays() {
-    return Array.from(this.days).filter((day) => day.selected);
+    return Array.from(this.days).filter((day) => day.selected)
   }
 
   select(day) {
-    this._selectedDates.push(day.date);
-    this.requestUpdate();
+    this._selectedDates.push(day.date)
+    this.requestUpdate()
   }
 
   deselect(day) {
-    this._selectedDates = this._selectedDates.filter(
-      (date) => date !== day.date
-    );
-    this.requestUpdate();
+    this._selectedDates = this._selectedDates.filter((date) => date !== day.date)
+    this.requestUpdate()
   }
 
   toggle(day) {
     if (day.selected) {
-      this.deselect(day);
+      this.deselect(day)
     } else {
-      this.select(day);
+      this.select(day)
     }
   }
 
   createRenderRoot() {
-    return this;
+    return this
   }
 
   /**
@@ -268,9 +250,9 @@ export class DayGrid extends LitElement {
    * @returns {void}
    */
   focus() {
-    const dayCell = this.querySelector("day-grid-item:not([disabled])");
+    const dayCell = this.querySelector('day-grid-item:not([disabled])')
     if (dayCell) {
-      dayCell.focus();
+      dayCell.focus()
     }
   }
 
@@ -280,37 +262,31 @@ export class DayGrid extends LitElement {
    * @param {Date} date
    */
   jumpToDate(date) {
-    this.month = date.getMonth();
-    this.year = date.getFullYear();
-    this.requestUpdate();
+    this.month = date.getMonth()
+    this.year = date.getFullYear()
+    this.requestUpdate()
 
     this.updateComplete.then(() => {
-      const dayCell = this.querySelector(
-        `day-grid-item[date="${date.toISOString()}"]`
-      );
+      const dayCell = this.querySelector(`day-grid-item[date="${date.toISOString()}"]`)
       if (dayCell) {
-        dayCell.focus();
+        dayCell.focus()
       }
-    });
+    })
   }
 
   /**
    * Jump to today.
    */
   jumpToToday() {
-    this.jumpToDate(new Date());
+    this.jumpToDate(new Date())
   }
 
   render() {
     return html`
       ${this.getDaysData().map(
-        (day) => html` <day-grid-item
-          .date=${day.date.toISOString()}
-          .disabled=${day.disabled}
-          .selected=${day.selected}
-        ></day-grid-item>`
+        (day) => html` <day-grid-item .date=${day.date.toISOString()} .disabled=${day.disabled} .selected=${day.selected}></day-grid-item>`
       )}
-    `;
+    `
   }
 
   static get styles() {
@@ -320,8 +296,8 @@ export class DayGrid extends LitElement {
         grid-template-columns: repeat(7, 1fr);
         grid-template-rows: repeat(6, 1fr);
       }
-    `;
+    `
   }
 }
 
-window.customElements.define("day-grid", DayGrid);
+window.customElements.define('day-grid', DayGrid)

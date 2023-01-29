@@ -1,4 +1,4 @@
-import { css, html, LitElement } from "lit";
+import { css, html, LitElement } from 'lit'
 
 /**
  * Implements an accessible day cell.
@@ -22,20 +22,20 @@ export class DayGridItem extends LitElement {
        * The day cell will not be focusable.
        * The day cell will not be selectable.
        */
-      selected: { type: Boolean, reflect: true },
-    };
+      selected: { type: Boolean, reflect: true }
+    }
   }
 
   constructor() {
-    super();
-    this.date = "";
-    this.tabIndex = -1;
-    this.disabled = true;
-    this.selected = false;
+    super()
+    this.date = ''
+    this.tabIndex = -1
+    this.disabled = true
+    this.selected = false
 
     // Bind event listeners.
-    this.addEventListener("click", this._onClick.bind(this));
-    this.addEventListener("keydown", this._onKeyDown.bind(this));
+    this.addEventListener('click', this._onClick.bind(this))
+    this.addEventListener('keydown', this._onKeyDown.bind(this))
   }
 
   /**
@@ -43,7 +43,7 @@ export class DayGridItem extends LitElement {
    * @returns {number}
    */
   get day() {
-    return new Date(this.date).getDate();
+    return new Date(this.date).getDate()
   }
 
   /**
@@ -51,7 +51,7 @@ export class DayGridItem extends LitElement {
    * @returns {number}
    */
   get month() {
-    return new Date(this.date).getMonth();
+    return new Date(this.date).getMonth()
   }
 
   /**
@@ -59,7 +59,7 @@ export class DayGridItem extends LitElement {
    * @returns {number}
    */
   get year() {
-    return new Date(this.date).getFullYear();
+    return new Date(this.date).getFullYear()
   }
 
   /**
@@ -67,12 +67,7 @@ export class DayGridItem extends LitElement {
    * @returns {string}
    */
   get lang() {
-    return (
-      this.getAttribute("lang") ||
-      this.grid?.lang ||
-      document.documentElement.lang ||
-      "en"
-    );
+    return this.getAttribute('lang') || this.grid?.lang || document.documentElement.lang || 'en'
   }
 
   /**
@@ -80,13 +75,9 @@ export class DayGridItem extends LitElement {
    * @returns {boolean}
    */
   get isToday() {
-    const today = new Date();
-    const date = new Date(this.date);
-    return (
-      today.getDate() === date.getDate() &&
-      today.getMonth() === date.getMonth() &&
-      today.getFullYear() === date.getFullYear()
-    );
+    const today = new Date()
+    const date = new Date(this.date)
+    return today.getDate() === date.getDate() && today.getMonth() === date.getMonth() && today.getFullYear() === date.getFullYear()
   }
 
   /**
@@ -94,7 +85,7 @@ export class DayGridItem extends LitElement {
    * @returns {Element}
    */
   get grid() {
-    return this.closest("day-grid");
+    return this.closest('day-grid')
   }
 
   /**
@@ -102,7 +93,7 @@ export class DayGridItem extends LitElement {
    * @returns {boolean}
    */
   get isFirstDayOfMonth() {
-    return this.day === 1;
+    return this.day === 1
   }
 
   /**
@@ -110,9 +101,9 @@ export class DayGridItem extends LitElement {
    * @returns {boolean}
    */
   get isLastDayOfMonth() {
-    const date = new Date(this.date);
-    const nextDate = new Date(date.getFullYear(), date.getMonth() + 1, 1);
-    return this.day === nextDate.getDate() - 1;
+    const date = new Date(this.date)
+    const nextDate = new Date(date.getFullYear(), date.getMonth() + 1, 1)
+    return this.day === nextDate.getDate() - 1
   }
 
   /**
@@ -120,7 +111,7 @@ export class DayGridItem extends LitElement {
    * @returns {boolean}
    */
   get isFirstDayOfYear() {
-    return this.day === 1 && this.month === 0;
+    return this.day === 1 && this.month === 0
   }
 
   /**
@@ -128,7 +119,7 @@ export class DayGridItem extends LitElement {
    * @returns {boolean}
    */
   get isLastDayOfYear() {
-    return this.day === 31 && this.month === 11;
+    return this.day === 31 && this.month === 11
   }
 
   /**
@@ -136,11 +127,11 @@ export class DayGridItem extends LitElement {
    * @returns {boolean}
    */
   get isFirstDayOfWeek() {
-    const date = new Date(this.date);
+    const date = new Date(this.date)
     // TODO: Check for Intl.Locale polyfill
-    const locale = new Intl.Locale(this.lang);
-    const firstDayOfWeek = locale?.weekInfo.firstDay ?? 0;
-    return (date.getDay() || 7) === firstDayOfWeek;
+    const locale = new Intl.Locale(this.lang)
+    const firstDayOfWeek = locale?.weekInfo.firstDay ?? 0
+    return (date.getDay() || 7) === firstDayOfWeek
   }
 
   /**
@@ -148,11 +139,11 @@ export class DayGridItem extends LitElement {
    * @returns {boolean}
    */
   get isLastDayOfWeek() {
-    const date = new Date(this.date);
+    const date = new Date(this.date)
     // TODO: Check for Intl.Locale polyfill
-    const locale = new Intl.Locale(this.lang);
-    const firstDayOfWeek = locale?.weekInfo.firstDay ?? 0;
-    return (date.getDay() || 7) === (firstDayOfWeek + 6) % 7;
+    const locale = new Intl.Locale(this.lang)
+    const firstDayOfWeek = locale?.weekInfo.firstDay ?? 0
+    return (date.getDay() || 7) === (firstDayOfWeek + 6) % 7
   }
 
   /**
@@ -160,10 +151,10 @@ export class DayGridItem extends LitElement {
    * @returns {*|boolean}
    */
   get isWeekend() {
-    const date = new Date(this.date);
+    const date = new Date(this.date)
     // TODO: Check for Intl.Locale polyfill
-    const locale = new Intl.Locale(this.lang);
-    return locale?.weekInfo?.weekend.includes(date.getDay() || 7) ?? false;
+    const locale = new Intl.Locale(this.lang)
+    return locale?.weekInfo?.weekend.includes(date.getDay() || 7) ?? false
   }
 
   /**
@@ -171,13 +162,13 @@ export class DayGridItem extends LitElement {
    * @returns {string}
    */
   get formattedDate() {
-    const date = new Date(this.date);
+    const date = new Date(this.date)
     return date.toLocaleDateString(this.lang, {
-      weekday: "long",
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    });
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    })
   }
 
   /**
@@ -186,15 +177,15 @@ export class DayGridItem extends LitElement {
    */
   _onClick() {
     this.grid?.dispatchEvent(
-      new CustomEvent("day:click", {
+      new CustomEvent('day:click', {
         detail: {
           dayCell: this,
-          date: this.date,
+          date: this.date
         },
         bubbles: true,
-        composed: true,
+        composed: true
       })
-    );
+    )
   }
 
   /**
@@ -211,59 +202,59 @@ export class DayGridItem extends LitElement {
    */
   _onKeyDown(event) {
     switch (event.key) {
-      case "ArrowUp":
-        event.preventDefault();
-        const weekBefore = new Date(this.date);
-        weekBefore.setDate(weekBefore.getDate() - 7);
-        this.grid?.jumpToDate(weekBefore);
-        break;
-      case "ArrowDown":
-        event.preventDefault();
-        const weekAfter = new Date(this.date);
-        weekAfter.setDate(weekAfter.getDate() + 7);
-        this.grid?.jumpToDate(weekAfter);
-        break;
-      case "ArrowLeft":
-        event.preventDefault();
-        const dayBefore = new Date(this.date);
-        dayBefore.setDate(dayBefore.getDate() - 1);
-        this.grid?.jumpToDate(dayBefore);
-        break;
-      case "ArrowRight":
-        event.preventDefault();
-        const dayAfter = new Date(this.date);
-        dayAfter.setDate(dayAfter.getDate() + 1);
-        this.grid?.jumpToDate(dayAfter);
-        break;
-      case "Home":
-        event.preventDefault();
-        const firstDayOfMonth = new Date(this.date);
-        firstDayOfMonth.setDate(1);
-        this.grid?.jumpToDate(firstDayOfMonth);
-        break;
-      case "End":
-        event.preventDefault();
-        const lastDayOfMonth = new Date(this.date);
-        lastDayOfMonth.setMonth(lastDayOfMonth.getMonth() + 1);
-        lastDayOfMonth.setDate(0);
-        this.grid?.jumpToDate(lastDayOfMonth);
-        break;
-      case "PageUp":
-        event.preventDefault();
-        const monthBefore = new Date(this.date);
-        monthBefore.setMonth(monthBefore.getMonth() - 1);
-        this.grid?.jumpToDate(monthBefore);
-        break;
-      case "PageDown":
-        event.preventDefault();
-        const monthAfter = new Date(this.date);
-        monthAfter.setMonth(monthAfter.getMonth() + 1);
-        this.grid?.jumpToDate(monthAfter);
-        break;
-      case "Enter":
-      case " ":
-        this._onClick();
-        break;
+      case 'ArrowUp':
+        event.preventDefault()
+        const weekBefore = new Date(this.date)
+        weekBefore.setDate(weekBefore.getDate() - 7)
+        this.grid?.jumpToDate(weekBefore)
+        break
+      case 'ArrowDown':
+        event.preventDefault()
+        const weekAfter = new Date(this.date)
+        weekAfter.setDate(weekAfter.getDate() + 7)
+        this.grid?.jumpToDate(weekAfter)
+        break
+      case 'ArrowLeft':
+        event.preventDefault()
+        const dayBefore = new Date(this.date)
+        dayBefore.setDate(dayBefore.getDate() - 1)
+        this.grid?.jumpToDate(dayBefore)
+        break
+      case 'ArrowRight':
+        event.preventDefault()
+        const dayAfter = new Date(this.date)
+        dayAfter.setDate(dayAfter.getDate() + 1)
+        this.grid?.jumpToDate(dayAfter)
+        break
+      case 'Home':
+        event.preventDefault()
+        const firstDayOfMonth = new Date(this.date)
+        firstDayOfMonth.setDate(1)
+        this.grid?.jumpToDate(firstDayOfMonth)
+        break
+      case 'End':
+        event.preventDefault()
+        const lastDayOfMonth = new Date(this.date)
+        lastDayOfMonth.setMonth(lastDayOfMonth.getMonth() + 1)
+        lastDayOfMonth.setDate(0)
+        this.grid?.jumpToDate(lastDayOfMonth)
+        break
+      case 'PageUp':
+        event.preventDefault()
+        const monthBefore = new Date(this.date)
+        monthBefore.setMonth(monthBefore.getMonth() - 1)
+        this.grid?.jumpToDate(monthBefore)
+        break
+      case 'PageDown':
+        event.preventDefault()
+        const monthAfter = new Date(this.date)
+        monthAfter.setMonth(monthAfter.getMonth() + 1)
+        this.grid?.jumpToDate(monthAfter)
+        break
+      case 'Enter':
+      case ' ':
+        this._onClick()
+        break
     }
   }
 
@@ -271,34 +262,34 @@ export class DayGridItem extends LitElement {
    * Updates additional attributes when the day cell is updated.
    */
   requestUpdate() {
-    super.requestUpdate(...arguments);
+    super.requestUpdate(...arguments)
 
     // If the day cell is disabled, it should not be focusable.
     if (this.disabled) {
-      this.tabIndex = -1;
-      this.ariaHidden = "true";
+      this.tabIndex = -1
+      this.ariaHidden = 'true'
     } else {
-      this.tabIndex = 0;
-      this.ariaHidden = "false";
+      this.tabIndex = 0
+      this.ariaHidden = 'false'
     }
 
     // If the date is today, it should be marked as such.
     if (this.isToday) {
-      this.setAttribute("today", "");
+      this.setAttribute('today', '')
     } else {
-      this.removeAttribute("today");
+      this.removeAttribute('today')
     }
 
     // If the date is a weekend day, it should be marked as such.
     if (this.isWeekend) {
-      this.setAttribute("weekend", "");
+      this.setAttribute('weekend', '')
     } else {
-      this.removeAttribute("weekend");
+      this.removeAttribute('weekend')
     }
   }
 
   render() {
-    return html`<span aria-label="${this.formattedDate}">${this.day}</span>`;
+    return html`<span aria-label="${this.formattedDate}">${this.day}</span>`
   }
 
   static get styles() {
@@ -306,8 +297,8 @@ export class DayGridItem extends LitElement {
       :host {
         display: block;
       }
-    `;
+    `
   }
 }
 
-window.customElements.define("day-grid-item", DayGridItem);
+window.customElements.define('day-grid-item', DayGridItem)

@@ -21,27 +21,27 @@
     <p>lang=fr</p>
     <day-grid lang="fr"></day-grid>
     <script>
-      const focus = document.getElementById("focus");
-      const grid = document.querySelector("day-grid");
-      focus.addEventListener("click", () => {
-        grid.focus();
-      });
-      const next = document.getElementById("next");
-      next.addEventListener("click", () => {
-        grid.nextMonth();
-      });
-      const prev = document.getElementById("prev");
-      prev.addEventListener("click", () => {
-        grid.previousMonth();
-      });
-      const today = document.getElementById("today");
-      today.addEventListener("click", () => {
-        grid.jumpToToday();
-      });
-      grid.addEventListener("day:click", (e) => {
-        console.log(e.detail);
-        grid.toggle(e.detail.dayCell);
-      });
+      const focus = document.getElementById('focus')
+      const grid = document.querySelector('day-grid')
+      focus.addEventListener('click', () => {
+        grid.focus()
+      })
+      const next = document.getElementById('next')
+      next.addEventListener('click', () => {
+        grid.nextMonth()
+      })
+      const prev = document.getElementById('prev')
+      prev.addEventListener('click', () => {
+        grid.previousMonth()
+      })
+      const today = document.getElementById('today')
+      today.addEventListener('click', () => {
+        grid.jumpToToday()
+      })
+      grid.addEventListener('day:click', (e) => {
+        console.log(e.detail)
+        grid.toggle(e.detail.dayCell)
+      })
     </script>
   </body>
 </html>
