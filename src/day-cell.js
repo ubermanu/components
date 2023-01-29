@@ -248,6 +248,18 @@ export class DayCell extends LitElement {
         lastDayOfMonth.setDate(0);
         this.grid?.jumpToDate(lastDayOfMonth);
         break;
+      case "PageUp":
+        event.preventDefault();
+        const monthBefore = new Date(this.date);
+        monthBefore.setMonth(monthBefore.getMonth() - 1);
+        this.grid?.jumpToDate(monthBefore);
+        break;
+      case "PageDown":
+        event.preventDefault();
+        const monthAfter = new Date(this.date);
+        monthAfter.setMonth(monthAfter.getMonth() + 1);
+        this.grid?.jumpToDate(monthAfter);
+        break;
       case "Enter":
       case " ":
         this._onClick();
