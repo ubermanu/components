@@ -62,6 +62,8 @@ export class ListBoxItem extends LitElement {
   _onKeyDown(event) {
     const items = Array.from(this.listbox?.items).filter((item) => !item.disabled || item === this)
     const index = items.indexOf(this)
+    // TODO: Make the page size configurable.
+    const pageSize = 5
 
     switch (event.key) {
       case 'ArrowUp':
@@ -86,6 +88,16 @@ export class ListBoxItem extends LitElement {
       case 'End':
         event.preventDefault()
         items[items.length - 1]?.focus()
+        break
+      case 'PageUp':
+        event.preventDefault()
+        const prevIndex = Math.max(index - pageSize, 0)
+        items[prevIndex]?.focus()
+        break
+      case 'PageDown':
+        event.preventDefault()
+        const nextIndex = Math.min(index + pageSize, items.length - 1)
+        items[nextIndex]?.focus()
         break
       case ' ':
       case 'Enter':
