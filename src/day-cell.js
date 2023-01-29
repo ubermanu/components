@@ -238,8 +238,10 @@ export class DayCell extends LitElement {
     // If the day cell is disabled, it should not be focusable.
     if (this.disabled) {
       this.tabIndex = -1;
+      this.ariaHidden = "true";
     } else {
       this.tabIndex = 0;
+      this.ariaHidden = "false";
     }
 
     // If the date is today, it should be marked as such.

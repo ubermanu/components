@@ -128,6 +128,7 @@ export class DayGrid extends LitElement {
       days.push({
         date: date,
         disabled: true,
+        selected: false,
       });
     }
 
@@ -137,6 +138,7 @@ export class DayGrid extends LitElement {
       days.push({
         date: date,
         disabled: false,
+        selected: false,
       });
     }
 
@@ -146,6 +148,7 @@ export class DayGrid extends LitElement {
       days.push({
         date: date,
         disabled: true,
+        selected: false,
       });
     }
 
