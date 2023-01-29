@@ -299,5 +299,3 @@ export class DayGrid extends LitElement {
     `
   }
 }
-
-window.customElements.define('day-grid', DayGrid)
