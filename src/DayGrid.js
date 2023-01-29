@@ -250,10 +250,7 @@ export class DayGrid extends LitElement {
    * @returns {void}
    */
   focus() {
-    const dayCell = this.querySelector('day-grid-item:not([disabled])')
-    if (dayCell) {
-      dayCell.focus()
-    }
+    this.querySelector('day-grid-item:not([disabled])')?.focus()
   }
 
   /**
