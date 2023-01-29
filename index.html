@@ -12,6 +12,7 @@
       <button id="focus">focus</button>
       <button id="next">next month</button>
       <button id="prev">prev month</button>
+      <button id="today">today</button>
     </div>
     <day-grid></day-grid>
     <script>
@@ -27,6 +28,10 @@
       const prev = document.getElementById("prev");
       prev.addEventListener("click", () => {
         grid.previousMonth();
+      });
+      const today = document.getElementById("today");
+      today.addEventListener("click", () => {
+        grid.jumpToToday();
       });
     </script>
   </body>

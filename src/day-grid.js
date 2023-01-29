@@ -223,6 +223,13 @@ export class DayGrid extends LitElement {
     });
   }
 
+  /**
+   * Jump to today.
+   */
+  jumpToToday() {
+    this.jumpToDate(new Date());
+  }
+
   render() {
     return html`
       ${this.getDaysData().map(
