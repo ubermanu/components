@@ -29,6 +29,13 @@ export class DayCell extends LitElement {
   constructor() {
     super();
     this.date = "";
+    this.tabIndex = -1;
+    this.disabled = true;
+    this.selected = false;
+
+    // Bind event listeners.
+    this.addEventListener("click", this._onClick.bind(this));
+    this.addEventListener("keydown", this._onKeyDown.bind(this));
   }
 
   /**
@@ -157,6 +164,72 @@ export class DayCell extends LitElement {
   }
 
   /**
+   * When the day cell is clicked, it should be selected.
+   * @private
+   */
+  _onClick() {
+    this.grid?.select(this);
+  }
+
+  /**
+   * Keyboard navigation.
+   * When the day cell is focused, the following keys are supported:
+   * - ArrowUp: Select the day cell above.
+   * - ArrowDown: Select the day cell below.
+   * - ArrowLeft: Select the day cell on the left.
+   * - ArrowRight: Select the day cell on the right.
+   * - Home: Select the first day cell of the month.
+   * - End: Select the last day cell of the month.
+   * @param {KeyboardEvent} event
+   * @private
+   */
+  _onKeyDown(event) {
+    switch (event.key) {
+      case "ArrowUp":
+        event.preventDefault();
+        const weekBefore = new Date(this.date);
+        weekBefore.setDate(weekBefore.getDate() - 7);
+        this.grid?.jumpToDate(weekBefore);
+        break;
+      case "ArrowDown":
+        event.preventDefault();
+        const weekAfter = new Date(this.date);
+        weekAfter.setDate(weekAfter.getDate() + 7);
+        this.grid?.jumpToDate(weekAfter);
+        break;
+      case "ArrowLeft":
+        event.preventDefault();
+        const dayBefore = new Date(this.date);
+        dayBefore.setDate(dayBefore.getDate() - 1);
+        this.grid?.jumpToDate(dayBefore);
+        break;
+      case "ArrowRight":
+        event.preventDefault();
+        const dayAfter = new Date(this.date);
+        dayAfter.setDate(dayAfter.getDate() + 1);
+        this.grid?.jumpToDate(dayAfter);
+        break;
+      case "Home":
+        event.preventDefault();
+        const firstDayOfMonth = new Date(this.date);
+        firstDayOfMonth.setDate(1);
+        this.grid?.jumpToDate(firstDayOfMonth);
+        break;
+      case "End":
+        event.preventDefault();
+        const lastDayOfMonth = new Date(this.date);
+        lastDayOfMonth.setMonth(lastDayOfMonth.getMonth() + 1);
+        lastDayOfMonth.setDate(0);
+        this.grid?.jumpToDate(lastDayOfMonth);
+        break;
+      case "Enter":
+      case " ":
+        this.grid?.select(this);
+        break;
+    }
+  }
+
+  /**
    * Updates additional attributes when the day cell is updated.
    */
   requestUpdate() {
@@ -167,6 +240,13 @@ export class DayCell extends LitElement {
       this.tabIndex = -1;
     } else {
       this.tabIndex = 0;
+    }
+
+    // If the date is today, it should be marked as such.
+    if (this.isToday) {
+      this.setAttribute("today", "");
+    } else {
+      this.removeAttribute("today");
     }
   }
 

@@ -112,7 +112,7 @@ export class DayGrid extends LitElement {
    * The days of the next month will be added to the end of the array.
    * @returns {Array}
    */
-  get days() {
+  getDaysData() {
     const days = [];
 
     if (this.year === -1 || this.month === -1) {
@@ -152,8 +152,27 @@ export class DayGrid extends LitElement {
     return days;
   }
 
+  /**
+   * Returns the selected dates.
+   * @type {[]}
+   * @private
+   */
+  _selectedDates = [];
+
+  /**
+   * Returns the day cells.
+   * @returns {NodeListOf<Element>}
+   */
+  get days() {
+    return this.querySelectorAll("day-cell");
+  }
+
+  /**
+   * Returns the selected day cells.
+   * @returns {Element[]}
+   */
   get selectedDays() {
-    return this.days.filter((day) => day.selected);
+    return Array.from(this.days).filter((day) => day.selected);
   }
 
   select(day) {
@@ -181,9 +200,29 @@ export class DayGrid extends LitElement {
     }
   }
 
+  /**
+   * Jump to a specific date.
+   * Focus the cell for that date.
+   * @param {Date} date
+   */
+  jumpToDate(date) {
+    this.month = date.getMonth();
+    this.year = date.getFullYear();
+    this.requestUpdate();
+
+    this.updateComplete.then(() => {
+      const dayCell = this.querySelector(
+        `day-cell[date="${date.toISOString()}"]`
+      );
+      if (dayCell) {
+        dayCell.focus();
+      }
+    });
+  }
+
   render() {
     return html`
-      ${this.days.map(
+      ${this.getDaysData().map(
         (day) => html`<day-cell
           .date=${day.date.toISOString()}
           .disabled=${day.disabled}
