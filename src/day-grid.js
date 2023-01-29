@@ -20,6 +20,7 @@ export class DayGrid extends LitElement {
 
       /**
        * The start day of the week.
+       * 0 = Sunday
        * 1 = Monday
        * 2 = Tuesday
        * 3 = Wednesday

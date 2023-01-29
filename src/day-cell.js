@@ -132,12 +132,15 @@ export class DayCell extends LitElement {
   }
 
   /**
-   * Returns true if the day cell is the first day of the week.
+   * Returns true if the day cell is the first day of the week (according to the lang attr).
    * @returns {boolean}
    */
   get isFirstDayOfWeek() {
     const date = new Date(this.date);
-    return date.getDay() === 0;
+    // TODO: Check for Intl.Locale polyfill
+    const locale = new Intl.Locale(this.lang);
+    const firstDayOfWeek = locale?.weekInfo.firstDay ?? 0;
+    return (date.getDay() || 7) === firstDayOfWeek;
   }
 
   /**
@@ -146,7 +149,21 @@ export class DayCell extends LitElement {
    */
   get isLastDayOfWeek() {
     const date = new Date(this.date);
-    return date.getDay() === 6;
+    // TODO: Check for Intl.Locale polyfill
+    const locale = new Intl.Locale(this.lang);
+    const firstDayOfWeek = locale?.weekInfo.firstDay ?? 0;
+    return (date.getDay() || 7) === (firstDayOfWeek + 6) % 7;
+  }
+
+  /**
+   * Returns true if the day cell is a weekend day (according to the lang attr).
+   * @returns {*|boolean}
+   */
+  get isWeekend() {
+    const date = new Date(this.date);
+    // TODO: Check for Intl.Locale polyfill
+    const locale = new Intl.Locale(this.lang);
+    return locale?.weekInfo?.weekend.includes(date.getDay() || 7) ?? false;
   }
 
   /**
@@ -258,6 +275,13 @@ export class DayCell extends LitElement {
       this.setAttribute("today", "");
     } else {
       this.removeAttribute("today");
+    }
+
+    // If the date is a weekend day, it should be marked as such.
+    if (this.isWeekend) {
+      this.setAttribute("weekend", "");
+    } else {
+      this.removeAttribute("weekend");
     }
   }
 
