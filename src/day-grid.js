@@ -17,6 +17,18 @@ export class DayGrid extends LitElement {
        * The current year being displayed.
        */
       year: { type: Number, reflect: true },
+
+      /**
+       * The start day of the week.
+       * 0 = Monday
+       * 1 = Tuesday
+       * 2 = Wednesday
+       * 3 = Thursday
+       * 4 = Friday
+       * 5 = Saturday
+       * 6 = Sunday
+       */
+      startDay: { type: Number, reflect: true },
     };
   }
 
@@ -27,6 +39,10 @@ export class DayGrid extends LitElement {
     const today = new Date();
     this.month = today.getMonth();
     this.year = today.getFullYear();
+
+    // The start day is set to Sunday.
+    // TODO: Set the start day based on the lang attribute.
+    this.startDay = 6;
   }
 
   /**
@@ -119,36 +135,48 @@ export class DayGrid extends LitElement {
       return days;
     }
 
-    const firstDay = new Date(this.year, this.month, 1);
-    const lastDay = new Date(this.year, this.month + 1, 0);
-
     // Add the days of the previous month.
-    for (let i = firstDay.getDay() - 1; i >= 0; i--) {
-      const date = new Date(this.year, this.month, 1 - i);
+    const previousMonthLastDay = new Date(this.year, this.month, 0);
+    const previousMonthLastDayDate = previousMonthLastDay.getDate();
+    const previousMonthLastDayDay = previousMonthLastDay.getDay();
+    const previousMonthDaysToAdd =
+      previousMonthLastDayDay >= this.startDay
+        ? previousMonthLastDayDay - this.startDay
+        : 7 - this.startDay + previousMonthLastDayDay;
+
+    for (let i = 0; i < previousMonthDaysToAdd; i++) {
+      const date = previousMonthLastDayDate - previousMonthDaysToAdd + i + 1;
       days.push({
-        date: date,
+        date: new Date(this.year, this.month - 1, date),
         disabled: true,
-        selected: this._selectedDates.includes(date.toISOString()),
+        selected: this._selectedDates.includes(
+          new Date(this.year, this.month - 1, date).toISOString()
+        ),
       });
     }
 
+    const lastDay = new Date(this.year, this.month + 1, 0);
+
     // Add the days of the current month.
     for (let i = 1; i <= lastDay.getDate(); i++) {
-      const date = new Date(this.year, this.month, i);
       days.push({
-        date: date,
+        date: new Date(this.year, this.month, i),
         disabled: false,
-        selected: this._selectedDates.includes(date.toISOString()),
+        selected: this._selectedDates.includes(
+          new Date(this.year, this.month, i).toISOString()
+        ),
       });
     }
 
     // Add the days of the next month.
-    for (let i = 1; days.length < 42; i++) {
-      const date = new Date(this.year, this.month + 1, i);
+    const nextMonthDaysToAdd = 42 - days.length;
+    for (let i = 1; i <= nextMonthDaysToAdd; i++) {
       days.push({
-        date: date,
+        date: new Date(this.year, this.month + 1, i),
         disabled: true,
-        selected: this._selectedDates.includes(date.toISOString()),
+        selected: this._selectedDates.includes(
+          new Date(this.year, this.month + 1, i).toISOString()
+        ),
       });
     }
 
@@ -243,7 +271,7 @@ export class DayGrid extends LitElement {
   render() {
     return html`
       ${this.getDaysData().map(
-        (day) => html`<day-cell
+        (day) => html` <day-cell
           .date=${day.date.toISOString()}
           .disabled=${day.disabled}
           .selected=${day.selected}
