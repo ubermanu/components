@@ -3,6 +3,12 @@
   "version": "0.1.0",
   "type": "module",
   "description": "A collection of low-level web components",
+  "author": "Emmanuel Vodor <manu@paca.happy-dev.fr>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ubermanu/hairclip.git"
+  },
   "main": "dist/hairclip.cjs",
   "module": "dist/hairclip.js",
   "files": [
