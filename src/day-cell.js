@@ -168,7 +168,7 @@ export class DayCell extends LitElement {
    * @private
    */
   _onClick() {
-    this.grid?.select(this);
+    this.grid?.toggle(this);
   }
 
   /**

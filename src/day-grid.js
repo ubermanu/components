@@ -250,6 +250,14 @@ export class DayGrid extends LitElement {
     this.requestUpdate();
   }
 
+  toggle(day) {
+    if (day.selected) {
+      this.deselect(day);
+    } else {
+      this.select(day);
+    }
+  }
+
   createRenderRoot() {
     return this;
   }
