@@ -154,19 +154,27 @@ export class DayGrid extends LitElement {
 
     // Add the days of the previous month.
     const firstDay = new Date(this.year, this.month, 1);
+    const lastDayOfPreviousMonth = new Date(this.year, this.month, 0);
 
-    // TODO: The days should be positioned according the UNIX timestamp 0 (January 1, 1970).
     const previousMonthDaysToAdd =
       firstDay.getDay() - this.startDay < 0
         ? firstDay.getDay() - this.startDay + 7
         : firstDay.getDay() - this.startDay;
 
-    for (let i = 0; i < previousMonthDaysToAdd; i++) {
+    for (let i = previousMonthDaysToAdd; i > 0; i--) {
       days.push({
-        date: new Date(this.year, this.month - 1, i + 1),
+        date: new Date(
+          this.year,
+          this.month - 1,
+          lastDayOfPreviousMonth.getDate() - i + 1
+        ),
         disabled: true,
         selected: this._selectedDates.includes(
-          new Date(this.year, this.month - 1, i + 1).toISOString()
+          new Date(
+            this.year,
+            this.month - 1,
+            lastDayOfPreviousMonth.getDate() - i + 1
+          ).toISOString()
         ),
       });
     }
