@@ -128,7 +128,7 @@ export class DayGrid extends LitElement {
       days.push({
         date: date,
         disabled: true,
-        selected: false,
+        selected: this._selectedDates.includes(date.toISOString()),
       });
     }
 
@@ -138,7 +138,7 @@ export class DayGrid extends LitElement {
       days.push({
         date: date,
         disabled: false,
-        selected: false,
+        selected: this._selectedDates.includes(date.toISOString()),
       });
     }
 
@@ -148,7 +148,7 @@ export class DayGrid extends LitElement {
       days.push({
         date: date,
         disabled: true,
-        selected: false,
+        selected: this._selectedDates.includes(date.toISOString()),
       });
     }
 
@@ -156,11 +156,19 @@ export class DayGrid extends LitElement {
   }
 
   /**
-   * Returns the selected dates.
-   * @type {[]}
+   * Contains the selected dates of the grid, in the ISO 8601 format.
+   * @type {string[]}
    * @private
    */
   _selectedDates = [];
+
+  /**
+   * Returns the selected dates.
+   * @returns {string[]}
+   */
+  get selectedDates() {
+    return this._selectedDates;
+  }
 
   /**
    * Returns the day cells.
@@ -179,12 +187,14 @@ export class DayGrid extends LitElement {
   }
 
   select(day) {
-    day.selected = true;
+    this._selectedDates.push(day.date);
     this.requestUpdate();
   }
 
   deselect(day) {
-    day.selected = false;
+    this._selectedDates = this._selectedDates.filter(
+      (date) => date !== day.date
+    );
     this.requestUpdate();
   }
 
