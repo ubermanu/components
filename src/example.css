@@ -41,7 +41,7 @@ day-grid {
     user-select: none;
 }
 
-day-cell {
+day-grid-item {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -59,29 +59,29 @@ day-cell {
     user-select: none;
 }
 
-day-cell:hover {
+day-grid-item:hover {
     background-color: rgba(255, 255, 255, 0.24);
 }
 
-day-cell:active {
+day-grid-item:active {
     background-color: rgba(255, 255, 255, 0.36);
 }
 
-day-cell[disabled] {
+day-grid-item[disabled] {
     pointer-events: none;
     opacity: 0.5;
 }
 
-day-cell:focus {
+day-grid-item:focus {
     outline: none;
     box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #000000;
 }
 
-day-cell[today] {
+day-grid-item[today] {
     background-color: rgba(255, 255, 255, 0.24);
 }
 
-day-cell[selected] {
+day-grid-item[selected] {
     background-color: rgba(255, 255, 255, 0.36);
     font-weight: 600;
 }

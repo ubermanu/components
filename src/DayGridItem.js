@@ -4,7 +4,7 @@ import { css, html, LitElement } from "lit";
  * Implements an accessible day cell.
  * Renders its day with aria-* attributes.
  */
-export class DayCell extends LitElement {
+export class DayGridItem extends LitElement {
   static get properties() {
     return {
       /**
@@ -310,4 +310,4 @@ export class DayCell extends LitElement {
   }
 }
 
-window.customElements.define("day-cell", DayCell);
+window.customElements.define("day-grid-item", DayGridItem);

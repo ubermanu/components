@@ -1,5 +1,5 @@
 import { css, html, LitElement } from "lit";
-import "./day-cell.js";
+import "./DayGridItem.js";
 
 /**
  * Implements an accessible day grid.
@@ -228,7 +228,7 @@ export class DayGrid extends LitElement {
    * @returns {NodeListOf<Element>}
    */
   get days() {
-    return this.querySelectorAll("day-cell");
+    return this.querySelectorAll("day-grid-item");
   }
 
   /**
@@ -268,7 +268,7 @@ export class DayGrid extends LitElement {
    * @returns {void}
    */
   focus() {
-    const dayCell = this.querySelector("day-cell:not([disabled])");
+    const dayCell = this.querySelector("day-grid-item:not([disabled])");
     if (dayCell) {
       dayCell.focus();
     }
@@ -286,7 +286,7 @@ export class DayGrid extends LitElement {
 
     this.updateComplete.then(() => {
       const dayCell = this.querySelector(
-        `day-cell[date="${date.toISOString()}"]`
+        `day-grid-item[date="${date.toISOString()}"]`
       );
       if (dayCell) {
         dayCell.focus();
@@ -304,11 +304,11 @@ export class DayGrid extends LitElement {
   render() {
     return html`
       ${this.getDaysData().map(
-        (day) => html` <day-cell
+        (day) => html` <day-grid-item
           .date=${day.date.toISOString()}
           .disabled=${day.disabled}
           .selected=${day.selected}
-        ></day-cell>`
+        ></day-grid-item>`
       )}
     `;
   }
