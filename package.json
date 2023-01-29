@@ -1,12 +1,10 @@
 {
-  "name": "day-grid",
-  "private": true,
-  "version": "0.0.0",
+  "name": "hairclip",
+  "version": "0.1.0",
   "type": "module",
-  "main": "dist/my-element.es.js",
-  "exports": {
-    ".": "./dist/my-element.es.js"
-  },
+  "description": "A collection of low-level web components",
+  "main": "dist/hairclip.cjs",
+  "module": "dist/hairclip.js",
   "files": [
     "dist"
   ],
@@ -20,5 +18,8 @@
   "devDependencies": {
     "prettier": "^2.8.3",
     "vite": "^4.0.0"
+  },
+  "exports": {
+    ".": "./dist/hairclip.js"
   }
 }

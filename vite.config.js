@@ -5,7 +5,7 @@ export default defineConfig({
   build: {
     lib: {
       entry: "src/main.js",
-      formats: ["es"],
+      formats: ["es", "cjs"],
     },
     rollupOptions: {
       external: /^lit/,
