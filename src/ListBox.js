@@ -1,4 +1,4 @@
-import { html, LitElement } from 'lit'
+import { LitElement } from 'lit'
 
 /**
  * Implements an accessible, multi-selectable list box.
