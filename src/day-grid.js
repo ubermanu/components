@@ -20,13 +20,13 @@ export class DayGrid extends LitElement {
 
       /**
        * The start day of the week.
-       * 0 = Monday
-       * 1 = Tuesday
-       * 2 = Wednesday
-       * 3 = Thursday
-       * 4 = Friday
-       * 5 = Saturday
-       * 6 = Sunday
+       * 1 = Monday
+       * 2 = Tuesday
+       * 3 = Wednesday
+       * 4 = Thursday
+       * 5 = Friday
+       * 6 = Saturday
+       * 7 = Sunday
        */
       startDay: { type: Number, reflect: true },
     };
@@ -40,9 +40,11 @@ export class DayGrid extends LitElement {
     this.month = today.getMonth();
     this.year = today.getFullYear();
 
-    // The start day is set to Sunday.
-    // TODO: Set the start day based on the lang attribute.
-    this.startDay = 6;
+    // The start day is set according to the current locale.
+    // If the locale is not supported, it will default to Monday.
+    // TODO: Check polyfill support for Intl.Locale.
+    const locale = new Intl.Locale(this.lang);
+    this.startDay = locale?.weekInfo?.firstDay ?? 1;
   }
 
   /**
@@ -51,6 +53,20 @@ export class DayGrid extends LitElement {
    */
   get lang() {
     return this.getAttribute("lang") || document.documentElement.lang || "en";
+  }
+
+  /**
+   * Returns the weekdays of the calendar.
+   * The weekdays are represented by numbers, where 0 is Sunday and 6 is Saturday.
+   * The weekdays are ordered according to the start day of the calendar.
+   * @returns {*[]}
+   */
+  get weekdays() {
+    const weekdays = [];
+    for (let i = this.startDay; i < this.startDay + 7; i++) {
+      weekdays.push(i % 7);
+    }
+    return weekdays;
   }
 
   /**
@@ -126,6 +142,7 @@ export class DayGrid extends LitElement {
    * The array will contain 42 days (6 weeks).
    * The days of the previous month will be added to the beginning of the array.
    * The days of the next month will be added to the end of the array.
+   * The previous and next months will be calculated according to the start day of the calendar.
    * @returns {Array}
    */
   getDaysData() {
@@ -136,21 +153,20 @@ export class DayGrid extends LitElement {
     }
 
     // Add the days of the previous month.
-    const previousMonthLastDay = new Date(this.year, this.month, 0);
-    const previousMonthLastDayDate = previousMonthLastDay.getDate();
-    const previousMonthLastDayDay = previousMonthLastDay.getDay();
+    const firstDay = new Date(this.year, this.month, 1);
+
+    // TODO: The days should be positioned according the UNIX timestamp 0 (January 1, 1970).
     const previousMonthDaysToAdd =
-      previousMonthLastDayDay >= this.startDay
-        ? previousMonthLastDayDay - this.startDay
-        : 7 - this.startDay + previousMonthLastDayDay;
+      firstDay.getDay() - this.startDay < 0
+        ? firstDay.getDay() - this.startDay + 7
+        : firstDay.getDay() - this.startDay;
 
     for (let i = 0; i < previousMonthDaysToAdd; i++) {
-      const date = previousMonthLastDayDate - previousMonthDaysToAdd + i + 1;
       days.push({
-        date: new Date(this.year, this.month - 1, date),
+        date: new Date(this.year, this.month - 1, i + 1),
         disabled: true,
         selected: this._selectedDates.includes(
-          new Date(this.year, this.month - 1, date).toISOString()
+          new Date(this.year, this.month - 1, i + 1).toISOString()
         ),
       });
     }
