@@ -38,6 +38,10 @@
       today.addEventListener("click", () => {
         grid.jumpToToday();
       });
+      grid.addEventListener("day:click", (e) => {
+        console.log(e.detail);
+        grid.toggle(e.detail.dayCell);
+      });
     </script>
   </body>
 </html>

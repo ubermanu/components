@@ -164,11 +164,20 @@ export class DayCell extends LitElement {
   }
 
   /**
-   * When the day cell is clicked, it should be selected.
+   * When the day cell is clicked, send a custom event.
    * @private
    */
   _onClick() {
-    this.grid?.toggle(this);
+    this.grid?.dispatchEvent(
+      new CustomEvent("day:click", {
+        detail: {
+          dayCell: this,
+          date: this.date,
+        },
+        bubbles: true,
+        composed: true,
+      })
+    );
   }
 
   /**
