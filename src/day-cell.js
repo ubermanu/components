@@ -142,6 +142,10 @@ export class DayCell extends LitElement {
     return date.getDay() === 6;
   }
 
+  /**
+   * Returns the formatted date of the day cell according to the language.
+   * @returns {string}
+   */
   get formattedDate() {
     const date = new Date(this.date);
     return date.toLocaleDateString(this.lang, {
@@ -150,6 +154,20 @@ export class DayCell extends LitElement {
       month: "long",
       day: "numeric",
     });
+  }
+
+  /**
+   * Updates additional attributes when the day cell is updated.
+   */
+  requestUpdate() {
+    super.requestUpdate(...arguments);
+
+    // If the day cell is disabled, it should not be focusable.
+    if (this.disabled) {
+      this.tabIndex = -1;
+    } else {
+      this.tabIndex = 0;
+    }
   }
 
   render() {

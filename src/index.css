@@ -17,8 +17,6 @@
 
 body {
     margin: 0;
-    display: flex;
-    place-items: center;
     min-width: 320px;
     min-height: 100vh;
 }
@@ -70,4 +68,9 @@ day-cell:active {
 day-cell[disabled] {
     pointer-events: none;
     opacity: 0.5;
+}
+
+day-cell:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #000000;
 }

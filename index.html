@@ -8,6 +8,26 @@
     <script type="module" src="/src/day-grid.js"></script>
   </head>
   <body>
+    <div class="controls">
+      <button id="focus">focus</button>
+      <button id="next">next month</button>
+      <button id="prev">prev month</button>
+    </div>
     <day-grid></day-grid>
+    <script>
+      const focus = document.getElementById("focus");
+      const grid = document.querySelector("day-grid");
+      focus.addEventListener("click", () => {
+        grid.focus();
+      });
+      const next = document.getElementById("next");
+      next.addEventListener("click", () => {
+        grid.nextMonth();
+      });
+      const prev = document.getElementById("prev");
+      prev.addEventListener("click", () => {
+        grid.previousMonth();
+      });
+    </script>
   </body>
 </html>

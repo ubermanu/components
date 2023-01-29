@@ -83,7 +83,7 @@ export class DayGrid extends LitElement {
    * Moves the calendar to the previous year.
    * If the current year is not set, it will not move.
    */
-  prevYear() {
+  previousYear() {
     if (this.year === -1) {
       return;
     }
@@ -168,6 +168,17 @@ export class DayGrid extends LitElement {
 
   createRenderRoot() {
     return this;
+  }
+
+  /**
+   * Focuses the first day cell that is not disabled.
+   * @returns {void}
+   */
+  focus() {
+    const dayCell = this.querySelector("day-cell:not([disabled])");
+    if (dayCell) {
+      dayCell.focus();
+    }
   }
 
   render() {
