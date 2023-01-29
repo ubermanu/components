@@ -1,5 +1,5 @@
 {
-  "name": "hairclip",
+  "name": "@ubermanu/components",
   "version": "0.1.0",
   "type": "module",
   "description": "A collection of low-level web components",
@@ -7,10 +7,10 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ubermanu/hairclip.git"
+    "url": "git+https://github.com/ubermanu/components.git"
   },
-  "main": "dist/hairclip.cjs",
-  "module": "dist/hairclip.js",
+  "main": "dist/components.cjs",
+  "module": "dist/components.js",
   "files": [
     "dist"
   ],
@@ -26,6 +26,6 @@
     "vite": "^4.0.0"
   },
   "exports": {
-    ".": "./dist/hairclip.js"
+    ".": "./dist/components.js"
   }
 }
