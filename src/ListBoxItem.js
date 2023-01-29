@@ -39,10 +39,11 @@ export class ListBoxItem extends LitElement {
 
     // Bind event listeners.
     this.addEventListener('click', this._onClick.bind(this))
+    this.addEventListener('keydown', this._onKeyDown.bind(this))
   }
 
   get listbox() {
-    return this.closest('[role="listbox"]')
+    return this.closest('ubermanu-listbox')
   }
 
   /**
@@ -51,6 +52,45 @@ export class ListBoxItem extends LitElement {
    */
   _onClick() {
     this.listbox?.toggleItem(this)
+  }
+
+  /**
+   * Handles keyboard navigation.
+   * @param {KeyboardEvent} event
+   * @private
+   */
+  _onKeyDown(event) {
+    const items = Array.from(this.listbox?.items).filter((item) => !item.disabled || item === this)
+    const index = items.indexOf(this)
+
+    switch (event.key) {
+      case 'ArrowUp':
+      case 'ArrowLeft':
+        event.preventDefault()
+        if (index > 0) {
+          items[index - 1]?.focus()
+          // TODO: Scroll the list box if the item is not visible.
+        }
+        break
+      case 'ArrowDown':
+      case 'ArrowRight':
+        event.preventDefault()
+        if (index < items.length - 1) {
+          items[index + 1]?.focus()
+        }
+        break
+      case 'Home':
+        event.preventDefault()
+        items[0]?.focus()
+        break
+      case 'End':
+        event.preventDefault()
+        items[items.length - 1]?.focus()
+        break
+      case ' ':
+      case 'Enter':
+        this._onClick()
+    }
   }
 
   /**

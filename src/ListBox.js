@@ -86,6 +86,15 @@ export class ListBox extends LitElement {
   }
 
   /**
+   * Focus the first non-disabled item.
+   */
+  focus() {
+    Array.from(this.items)
+      .find((item) => !item.disabled)
+      ?.focus()
+  }
+
+  /**
    * Updates the element with additional attributes.
    */
   requestUpdate() {
