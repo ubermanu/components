@@ -4,5 +4,5 @@ import { DayGridItem } from './DayGridItem.js'
 export * from './DayGrid.js'
 export * from './DayGridItem.js'
 
-window.customElements.define('day-grid', DayGrid)
-window.customElements.define('day-grid-item', DayGridItem)
+window.customElements.define('ubermanu-daygrid', DayGrid)
+window.customElements.define('ubermanu-daygrid-item', DayGridItem)

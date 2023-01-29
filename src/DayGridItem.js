@@ -85,7 +85,7 @@ export class DayGridItem extends LitElement {
    * @returns {Element}
    */
   get grid() {
-    return this.closest('day-grid')
+    return this.closest('ubermanu-daygrid')
   }
 
   /**

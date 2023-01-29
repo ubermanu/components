@@ -17,5 +17,5 @@ The grid is composed of 7 columns and 6 rows.\
 Can be used to display a calendar.
 
 ```html
-<day-grid></day-grid>
+<ubermanu-daygrid></ubermanu-daygrid>
 ```

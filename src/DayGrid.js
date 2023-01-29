@@ -1,4 +1,4 @@
-import { css, html, LitElement } from 'lit'
+import { html, LitElement } from 'lit'
 
 /**
  * Implements an accessible day grid.
@@ -211,7 +211,7 @@ export class DayGrid extends LitElement {
    * @returns {NodeListOf<Element>}
    */
   get days() {
-    return this.querySelectorAll('day-grid-item')
+    return this.querySelectorAll('ubermanu-daygrid-item')
   }
 
   /**
@@ -249,7 +249,7 @@ export class DayGrid extends LitElement {
    * @returns {void}
    */
   focus() {
-    this.querySelector('day-grid-item:not([disabled])')?.focus()
+    this.querySelector('ubermanu-daygrid-item:not([disabled])')?.focus()
   }
 
   /**
@@ -263,7 +263,7 @@ export class DayGrid extends LitElement {
     this.requestUpdate()
 
     this.updateComplete.then(() => {
-      const dayCell = this.querySelector(`day-grid-item[date="${date.toISOString()}"]`)
+      const dayCell = this.querySelector(`ubermanu-daygrid-item[date="${date.toISOString()}"]`)
       if (dayCell) {
         dayCell.focus()
       }
@@ -280,18 +280,13 @@ export class DayGrid extends LitElement {
   render() {
     return html`
       ${this.getDaysData().map(
-        (day) => html` <day-grid-item .date=${day.date.toISOString()} .disabled=${day.disabled} .selected=${day.selected}></day-grid-item>`
+        (day) =>
+          html` <ubermanu-daygrid-item
+            .date=${day.date.toISOString()}
+            .disabled=${day.disabled}
+            .selected=${day.selected}
+          ></ubermanu-daygrid-item>`
       )}
-    `
-  }
-
-  static get styles() {
-    return css`
-      :host {
-        display: grid;
-        grid-template-columns: repeat(7, 1fr);
-        grid-template-rows: repeat(6, 1fr);
-      }
     `
   }
 }
