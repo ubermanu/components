@@ -249,7 +249,7 @@ export class DayGrid extends LitElement {
    * @returns {void}
    */
   focus() {
-    this.querySelector('ubermanu-daygrid-item:not([disabled])')?.focus()
+    this.querySelector(':not([disabled])')?.focus()
   }
 
   /**
@@ -263,10 +263,7 @@ export class DayGrid extends LitElement {
     this.requestUpdate()
 
     this.updateComplete.then(() => {
-      const dayCell = this.querySelector(`ubermanu-daygrid-item[date="${date.toISOString()}"]`)
-      if (dayCell) {
-        dayCell.focus()
-      }
+      this.querySelector(`[date="${date.toISOString()}"]`)?.focus()
     })
   }
 
