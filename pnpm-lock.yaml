@@ -1,15 +1,17 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@ubermanu/prettier-config': ^1.0.0
   lit: ^2.4.1
-  prettier: ^2.8.3
+  prettier: ^2.8.4
   vite: ^4.0.0
 
 dependencies:
   lit: 2.6.1
 
 devDependencies:
-  prettier: 2.8.3
+  '@ubermanu/prettier-config': 1.0.0_prettier@2.8.6
+  prettier: 2.8.6
   vite: 4.0.4
 
 packages:
@@ -226,6 +228,16 @@ packages:
     resolution: {integrity: sha512-F5DIZ36YVLE+PN+Zwws4kJogq47hNgX3Nx6WyDJ3kcplxyke3XIzB8uK5n/Lpm1HBsbGzd6nmGehL8cPekP+Tg==}
     dev: false
 
+  /@ubermanu/prettier-config/1.0.0_prettier@2.8.6:
+    resolution: {integrity: sha512-4aGjF+ZSAj7ec2ZuQwbLuPNAMnkjSPEqnxSePbt+1grSLPr73o4TeaszGPXldkNkCga+srTawHlRfsy93yfybg==}
+    peerDependencies:
+      prettier: ^2.8.4
+      prettier-plugin-svelte: ^2.9.0
+    dependencies:
+      prettier: 2.8.6
+      try-require: 1.2.1
+    dev: true
+
   /esbuild/0.16.17:
     resolution: {integrity: sha512-G8LEkV0XzDMNwXKgM0Jwu3nY3lSTwSGY6XbxM9cr9+s0T/qSV1q1JVPBGzm3dcjhCic9+emZDmMffkwgPeOeLg==}
     engines: {node: '>=12'}
@@ -325,8 +337,8 @@ packages:
       source-map-js: 1.0.2
     dev: true
 
-  /prettier/2.8.3:
-    resolution: {integrity: sha512-tJ/oJ4amDihPoufT5sM0Z1SKEuKay8LfVAMlbbhnnkvt6BUserZylqo2PN+p9KeljLr0OHa2rXHU1T8reeoTrw==}
+  /prettier/2.8.6:
+    resolution: {integrity: sha512-mtuzdiBbHwPEgl7NxWlqOkithPyp4VN93V7VeHVWBF+ad3I5avc0RVDT4oImXQy9H/AqxA2NSQH8pSxHW6FYbQ==}
     engines: {node: '>=10.13.0'}
     hasBin: true
     dev: true
@@ -356,6 +368,10 @@ packages:
   /supports-preserve-symlinks-flag/1.0.0:
     resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}
     engines: {node: '>= 0.4'}
+    dev: true
+
+  /try-require/1.2.1:
+    resolution: {integrity: sha512-aMzrGUIA/R2LwUgvsOusx+GTy8ERyNjpBzbWgS1Qx4oTFlXCMxY3PyyXbPE1pvrvK/CXpO+BBREEqrTkNroC+A==}
     dev: true
 
   /vite/4.0.4:
