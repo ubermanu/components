@@ -59,31 +59,18 @@ ubermanu-daygrid-item {
     user-select: none;
 }
 
-ubermanu-daygrid-item:hover {
-    background-color: rgba(255, 255, 255, 0.24);
-}
-
-ubermanu-daygrid-item:active {
-    background-color: rgba(255, 255, 255, 0.36);
-}
-
 ubermanu-daygrid-item[disabled] {
     pointer-events: none;
     opacity: 0.5;
 }
 
-ubermanu-daygrid-item:focus {
+ubermanu-daygrid-item:focus-visible {
     outline: none;
     box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #000000;
 }
 
 ubermanu-daygrid-item[today] {
     background-color: rgba(255, 255, 255, 0.24);
-}
-
-ubermanu-daygrid-item[selected] {
-    background-color: rgba(255, 255, 255, 0.36);
-    font-weight: 600;
 }
 
 ubermanu-listbox {

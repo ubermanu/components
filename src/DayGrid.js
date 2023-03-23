@@ -1,4 +1,5 @@
 import { html, LitElement } from 'lit'
+import { repeat } from 'lit/directives/repeat.js'
 
 /**
  * Implements an accessible day grid.
@@ -28,7 +29,7 @@ export class DayGrid extends LitElement {
        * 6 = Saturday
        * 7 = Sunday
        */
-      startDay: { type: Number, reflect: true }
+      startDay: { type: Number, reflect: true },
     }
   }
 
@@ -157,13 +158,18 @@ export class DayGrid extends LitElement {
     const lastDayOfPreviousMonth = new Date(this.year, this.month, 0)
 
     const previousMonthDaysToAdd =
-      firstDay.getDay() - this.startDay < 0 ? firstDay.getDay() - this.startDay + 7 : firstDay.getDay() - this.startDay
+      firstDay.getDay() - this.startDay < 0
+        ? firstDay.getDay() - this.startDay + 7
+        : firstDay.getDay() - this.startDay
 
     for (let i = previousMonthDaysToAdd; i > 0; i--) {
       days.push({
-        date: new Date(this.year, this.month - 1, lastDayOfPreviousMonth.getDate() - i + 1),
+        date: new Date(
+          this.year,
+          this.month - 1,
+          lastDayOfPreviousMonth.getDate() - i + 1
+        ),
         disabled: true,
-        selected: this._selectedDates.includes(new Date(this.year, this.month - 1, lastDayOfPreviousMonth.getDate() - i + 1).toISOString())
       })
     }
 
@@ -174,7 +180,6 @@ export class DayGrid extends LitElement {
       days.push({
         date: new Date(this.year, this.month, i),
         disabled: false,
-        selected: this._selectedDates.includes(new Date(this.year, this.month, i).toISOString())
       })
     }
 
@@ -184,26 +189,10 @@ export class DayGrid extends LitElement {
       days.push({
         date: new Date(this.year, this.month + 1, i),
         disabled: true,
-        selected: this._selectedDates.includes(new Date(this.year, this.month + 1, i).toISOString())
       })
     }
 
     return days
-  }
-
-  /**
-   * Contains the selected dates of the grid, in the ISO 8601 format.
-   * @type {string[]}
-   * @private
-   */
-  _selectedDates = []
-
-  /**
-   * Returns the selected dates.
-   * @returns {string[]}
-   */
-  get selectedDates() {
-    return this._selectedDates
   }
 
   /**
@@ -212,32 +201,6 @@ export class DayGrid extends LitElement {
    */
   get days() {
     return this.querySelectorAll('ubermanu-daygrid-item')
-  }
-
-  /**
-   * Returns the selected day cells.
-   * @returns {Element[]}
-   */
-  get selectedDays() {
-    return Array.from(this.days).filter((day) => day.selected)
-  }
-
-  select(day) {
-    this._selectedDates.push(day.date)
-    this.requestUpdate()
-  }
-
-  deselect(day) {
-    this._selectedDates = this._selectedDates.filter((date) => date !== day.date)
-    this.requestUpdate()
-  }
-
-  toggle(day) {
-    if (day.selected) {
-      this.deselect(day)
-    } else {
-      this.select(day)
-    }
   }
 
   createRenderRoot() {
@@ -276,13 +239,14 @@ export class DayGrid extends LitElement {
 
   render() {
     return html`
-      ${this.getDaysData().map(
-        (day) =>
-          html` <ubermanu-daygrid-item
-            .date=${day.date.toISOString()}
-            .disabled=${day.disabled}
-            .selected=${day.selected}
-          ></ubermanu-daygrid-item>`
+      ${repeat(
+        this.getDaysData(),
+        (day) => day.date.toISOString(),
+        (day) => html` <ubermanu-daygrid-item
+          .date=${day.date.toISOString()}
+          .disabled=${day.disabled}
+          .selected=${day.selected}
+        ></ubermanu-daygrid-item>`
       )}
     `
   }

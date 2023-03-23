@@ -16,13 +16,6 @@ export class DayGridItem extends LitElement {
        * If disabled, the day cell will not be focusable.
        */
       disabled: { type: Boolean, reflect: true },
-
-      /**
-       * If selected, the day cell will be marked as selected.
-       * The day cell will not be focusable.
-       * The day cell will not be selectable.
-       */
-      selected: { type: Boolean, reflect: true }
     }
   }
 
@@ -31,10 +24,8 @@ export class DayGridItem extends LitElement {
     this.date = ''
     this.tabIndex = -1
     this.disabled = true
-    this.selected = false
 
     // Bind event listeners.
-    this.addEventListener('click', this._onClick.bind(this))
     this.addEventListener('keydown', this._onKeyDown.bind(this))
   }
 
@@ -67,7 +58,12 @@ export class DayGridItem extends LitElement {
    * @returns {string}
    */
   get lang() {
-    return this.getAttribute('lang') || this.grid?.lang || document.documentElement.lang || 'en'
+    return (
+      this.getAttribute('lang') ||
+      this.grid?.lang ||
+      document.documentElement.lang ||
+      'en'
+    )
   }
 
   /**
@@ -77,7 +73,11 @@ export class DayGridItem extends LitElement {
   get isToday() {
     const today = new Date()
     const date = new Date(this.date)
-    return today.getDate() === date.getDate() && today.getMonth() === date.getMonth() && today.getFullYear() === date.getFullYear()
+    return (
+      today.getDate() === date.getDate() &&
+      today.getMonth() === date.getMonth() &&
+      today.getFullYear() === date.getFullYear()
+    )
   }
 
   /**
@@ -167,25 +167,8 @@ export class DayGridItem extends LitElement {
       weekday: 'long',
       year: 'numeric',
       month: 'long',
-      day: 'numeric'
+      day: 'numeric',
     })
-  }
-
-  /**
-   * When the day cell is clicked, send a custom event.
-   * @private
-   */
-  _onClick() {
-    this.grid?.dispatchEvent(
-      new CustomEvent('day:click', {
-        detail: {
-          dayCell: this,
-          date: this.date
-        },
-        bubbles: true,
-        composed: true
-      })
-    )
   }
 
   /**
@@ -250,10 +233,6 @@ export class DayGridItem extends LitElement {
         const monthAfter = new Date(this.date)
         monthAfter.setMonth(monthAfter.getMonth() + 1)
         this.grid?.jumpToDate(monthAfter)
-        break
-      case 'Enter':
-      case ' ':
-        this._onClick()
         break
     }
   }
