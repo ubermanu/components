@@ -1,33 +1,43 @@
 {
   "name": "@ubermanu/components",
-  "version": "0.1.0",
-  "type": "module",
-  "description": "A collection of low-level web components",
-  "author": "Emmanuel Vodor <manu@paca.happy-dev.fr>",
-  "license": "MIT",
+  "version": "0.2.0",
+  "description": "A collection of custom web components",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ubermanu/components.git"
   },
-  "main": "dist/components.cjs",
-  "module": "dist/components.js",
+  "license": "MIT",
+  "author": "Emmanuel Vodor <emmanuel.vodor@proton.me>",
+  "type": "module",
   "files": [
     "dist"
   ],
   "scripts": {
-    "dev": "vite",
-    "build": "vite build"
+    "build": "tsup",
+    "build-storybook": "storybook build",
+    "dev": "storybook dev -p 6006",
+    "format": "prettier -w .",
+    "storybook": "storybook dev -p 6006"
   },
-  "dependencies": {
-    "lit": "^2.4.1"
-  },
+  "prettier": "@ubermanu/prettier-config",
   "devDependencies": {
-    "@ubermanu/prettier-config": "^1.0.0",
-    "prettier": "^2.8.4",
-    "vite": "^4.0.0"
+    "@chromatic-com/storybook": "^3.2.4",
+    "@storybook/addon-essentials": "^8.5.8",
+    "@storybook/addon-interactions": "^8.5.8",
+    "@storybook/blocks": "^8.5.8",
+    "@storybook/html": "^8.5.8",
+    "@storybook/html-vite": "^8.5.8",
+    "@storybook/test": "^8.5.8",
+    "@ubermanu/prettier-config": "^3.4.1",
+    "lit": "^3.2.1",
+    "prettier": "^3.5.2",
+    "storybook": "^8.5.8",
+    "tsup": "^8.3.6",
+    "typescript": "^5"
   },
-  "exports": {
-    ".": "./dist/components.js"
-  },
-  "prettier": "@ubermanu/prettier-config"
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
+  }
 }

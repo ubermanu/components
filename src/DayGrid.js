@@ -2,32 +2,21 @@ import { html, LitElement } from 'lit'
 import { repeat } from 'lit/directives/repeat.js'
 
 /**
- * Implements an accessible day grid.
- * Exposes some methods to control its view (e.g. previousMonth, nextMonth, etc.)
+ * Implements an accessible day grid. Exposes some methods to control its view
+ * (e.g. previousMonth, nextMonth, etc.)
  */
 export class DayGrid extends LitElement {
   static get properties() {
     return {
-      /**
-       * The current month being displayed.
-       */
+      /** The current month being displayed. */
       month: { type: Number, reflect: true },
 
-      /**
-       * The current year being displayed.
-       */
+      /** The current year being displayed. */
       year: { type: Number, reflect: true },
 
       /**
-       * The start day of the week.
-       * 0 = Sunday
-       * 1 = Monday
-       * 2 = Tuesday
-       * 3 = Wednesday
-       * 4 = Thursday
-       * 5 = Friday
-       * 6 = Saturday
-       * 7 = Sunday
+       * The start day of the week. 0 = Sunday 1 = Monday 2 = Tuesday 3 =
+       * Wednesday 4 = Thursday 5 = Friday 6 = Saturday 7 = Sunday
        */
       startDay: { type: Number, reflect: true },
     }
@@ -50,6 +39,7 @@ export class DayGrid extends LitElement {
 
   /**
    * Get the language of the grid.
+   *
    * @returns {string}
    */
   get lang() {
@@ -57,10 +47,11 @@ export class DayGrid extends LitElement {
   }
 
   /**
-   * Returns the weekdays of the calendar.
-   * The weekdays are represented by numbers, where 0 is Sunday and 6 is Saturday.
-   * The weekdays are ordered according to the start day of the calendar.
-   * @returns {*[]}
+   * Returns the weekdays of the calendar. The weekdays are represented by
+   * numbers, where 0 is Sunday and 6 is Saturday. The weekdays are ordered
+   * according to the start day of the calendar.
+   *
+   * @returns {any[]}
    */
   get weekdays() {
     const weekdays = []
@@ -71,10 +62,9 @@ export class DayGrid extends LitElement {
   }
 
   /**
-   * Moves the calendar to the previous month.
-   * If the current month is January, it will move to December of the previous year.
-   * If the current year is not set, it will not move.
-   * If the current month is not set, it will not move.
+   * Moves the calendar to the previous month. If the current month is January,
+   * it will move to December of the previous year. If the current year is not
+   * set, it will not move. If the current month is not set, it will not move.
    */
   previousMonth() {
     if (this.year === -1 || this.month === -1) {
@@ -92,10 +82,9 @@ export class DayGrid extends LitElement {
   }
 
   /**
-   * Moves the calendar to the next month.
-   * If the current month is December, it will move to January of the next year.
-   * If the current year is not set, it will not move.
-   * If the current month is not set, it will not move.
+   * Moves the calendar to the next month. If the current month is December, it
+   * will move to January of the next year. If the current year is not set, it
+   * will not move. If the current month is not set, it will not move.
    */
   nextMonth() {
     if (this.year === -1 || this.month === -1) {
@@ -113,8 +102,8 @@ export class DayGrid extends LitElement {
   }
 
   /**
-   * Moves the calendar to the previous year.
-   * If the current year is not set, it will not move.
+   * Moves the calendar to the previous year. If the current year is not set, it
+   * will not move.
    */
   previousYear() {
     if (this.year === -1) {
@@ -126,8 +115,8 @@ export class DayGrid extends LitElement {
   }
 
   /**
-   * Moves the calendar to the next year.
-   * If the current year is not set, it will not move.
+   * Moves the calendar to the next year. If the current year is not set, it
+   * will not move.
    */
   nextYear() {
     if (this.year === -1) {
@@ -139,11 +128,12 @@ export class DayGrid extends LitElement {
   }
 
   /**
-   * Returns an array of days for the current month.
-   * The array will contain 42 days (6 weeks).
-   * The days of the previous month will be added to the beginning of the array.
-   * The days of the next month will be added to the end of the array.
-   * The previous and next months will be calculated according to the start day of the calendar.
+   * Returns an array of days for the current month. The array will contain 42
+   * days (6 weeks). The days of the previous month will be added to the
+   * beginning of the array. The days of the next month will be added to the end
+   * of the array. The previous and next months will be calculated according to
+   * the start day of the calendar.
+   *
    * @returns {Array}
    */
   getDaysData() {
@@ -197,6 +187,7 @@ export class DayGrid extends LitElement {
 
   /**
    * Returns the day cells.
+   *
    * @returns {NodeListOf<Element>}
    */
   get days() {
@@ -209,6 +200,7 @@ export class DayGrid extends LitElement {
 
   /**
    * Focuses the first day cell that is not disabled.
+   *
    * @returns {void}
    */
   focus() {
@@ -216,8 +208,8 @@ export class DayGrid extends LitElement {
   }
 
   /**
-   * Jump to a specific date.
-   * Focus the cell for that date.
+   * Jump to a specific date. Focus the cell for that date.
+   *
    * @param {Date} date
    */
   jumpToDate(date) {
@@ -230,9 +222,7 @@ export class DayGrid extends LitElement {
     })
   }
 
-  /**
-   * Jump to today.
-   */
+  /** Jump to today. */
   jumpToToday() {
     this.jumpToDate(new Date())
   }
@@ -242,11 +232,12 @@ export class DayGrid extends LitElement {
       ${repeat(
         this.getDaysData(),
         (day) => day.date.toISOString(),
-        (day) => html` <ubermanu-daygrid-item
-          .date=${day.date.toISOString()}
-          .disabled=${day.disabled}
-          .selected=${day.selected}
-        ></ubermanu-daygrid-item>`
+        (day) =>
+          html` <ubermanu-daygrid-item
+            .date=${day.date.toISOString()}
+            .disabled=${day.disabled}
+            .selected=${day.selected}
+          ></ubermanu-daygrid-item>`
       )}
     `
   }

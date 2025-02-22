@@ -1,27 +1,23 @@
 import { LitElement } from 'lit'
 
-/**
- * Implements an accessible, multi-selectable list box.
- */
+/** Implements an accessible, multi-selectable list box. */
 export class ListBoxItem extends LitElement {
   static get properties() {
     return {
       /**
-       * If selected, the list box item will be marked as selected.
-       * The list box item will still be focusable.
+       * If selected, the list box item will be marked as selected. The list box
+       * item will still be focusable.
        */
       selected: { type: Boolean, reflect: true },
 
-      /**
-       * If disabled, the list box item will not be focusable.
-       */
+      /** If disabled, the list box item will not be focusable. */
       disabled: { type: Boolean, reflect: true },
 
       /**
-       * The value of the list box item.
-       * This value will be used to identify the list box item.
+       * The value of the list box item. This value will be used to identify the
+       * list box item.
        */
-      value: { type: String, reflect: true }
+      value: { type: String, reflect: true },
     }
   }
 
@@ -48,6 +44,7 @@ export class ListBoxItem extends LitElement {
 
   /**
    * Handles the click event.
+   *
    * @private
    */
   _onClick() {
@@ -56,11 +53,14 @@ export class ListBoxItem extends LitElement {
 
   /**
    * Handles keyboard navigation.
-   * @param {KeyboardEvent} event
+   *
    * @private
+   * @param {KeyboardEvent} event
    */
   _onKeyDown(event) {
-    const items = Array.from(this.listbox?.items).filter((item) => !item.disabled || item === this)
+    const items = Array.from(this.listbox?.items).filter(
+      (item) => !item.disabled || item === this
+    )
     const index = items.indexOf(this)
     // TODO: Make the page size configurable.
     const pageSize = 5
@@ -105,9 +105,7 @@ export class ListBoxItem extends LitElement {
     }
   }
 
-  /**
-   * Updates the element with additional attributes.
-   */
+  /** Updates the element with additional attributes. */
   requestUpdate() {
     super.requestUpdate(...arguments)
 

@@ -1,8 +1,6 @@
 import { LitElement } from 'lit'
 
-/**
- * Implements an accessible, multi-selectable list box.
- */
+/** Implements an accessible, multi-selectable list box. */
 export class ListBox extends LitElement {
   static get properties() {
     return {}
@@ -19,6 +17,7 @@ export class ListBox extends LitElement {
 
   /**
    * Returns all items.
+   *
    * @returns {NodeListOf<Element>}
    */
   get items() {
@@ -27,14 +26,18 @@ export class ListBox extends LitElement {
 
   /**
    * Returns the selected items.
-   * @returns {Array<Element>}
+   *
+   * @returns {Element[]}
    */
   selectedItems() {
-    return Array.from(this.items).filter((item) => item.selected && !item.disabled)
+    return Array.from(this.items).filter(
+      (item) => item.selected && !item.disabled
+    )
   }
 
   /**
    * Selects an item.
+   *
    * @param item
    */
   selectItem(item) {
@@ -46,6 +49,7 @@ export class ListBox extends LitElement {
 
   /**
    * Deselects an item.
+   *
    * @param item
    */
   deselectItem(item) {
@@ -57,6 +61,7 @@ export class ListBox extends LitElement {
 
   /**
    * Toggles an item.
+   *
    * @param item
    */
   toggleItem(item) {
@@ -67,27 +72,21 @@ export class ListBox extends LitElement {
     }
   }
 
-  /**
-   * Selects all items.
-   */
+  /** Selects all items. */
   selectAll() {
     this.items.forEach((item) => {
       this.selectItem(item)
     })
   }
 
-  /**
-   * Deselects all items.
-   */
+  /** Deselects all items. */
   deselectAll() {
     this.items.forEach((item) => {
       this.deselectItem(item)
     })
   }
 
-  /**
-   * Focus the first non-disabled item.
-   */
+  /** Focus the first non-disabled item. */
   focus() {
     Array.from(this.items)
       .find((item) => !item.disabled)

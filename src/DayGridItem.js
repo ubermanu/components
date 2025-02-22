@@ -1,20 +1,16 @@
 import { css, html, LitElement } from 'lit'
 
-/**
- * Implements an accessible day cell.
- * Renders its day with aria-* attributes.
- */
+/** Implements an accessible day cell. Renders its day with aria-* attributes. */
 export class DayGridItem extends LitElement {
   static get properties() {
     return {
       /**
-       * The date of the day cell in the ISO format (e.g. 2023-01-29T11:53:27.319Z).
+       * The date of the day cell in the ISO format (e.g.
+       * 2023-01-29T11:53:27.319Z).
        */
       date: { type: String, reflect: true },
 
-      /**
-       * If disabled, the day cell will not be focusable.
-       */
+      /** If disabled, the day cell will not be focusable. */
       disabled: { type: Boolean, reflect: true },
     }
   }
@@ -31,6 +27,7 @@ export class DayGridItem extends LitElement {
 
   /**
    * Get the day of the day cell.
+   *
    * @returns {number}
    */
   get day() {
@@ -39,6 +36,7 @@ export class DayGridItem extends LitElement {
 
   /**
    * Get the month of the day cell.
+   *
    * @returns {number}
    */
   get month() {
@@ -47,6 +45,7 @@ export class DayGridItem extends LitElement {
 
   /**
    * Get the year of the day cell.
+   *
    * @returns {number}
    */
   get year() {
@@ -55,6 +54,7 @@ export class DayGridItem extends LitElement {
 
   /**
    * Get the language of the day cell.
+   *
    * @returns {string}
    */
   get lang() {
@@ -68,6 +68,7 @@ export class DayGridItem extends LitElement {
 
   /**
    * Returns true if the day cell is today.
+   *
    * @returns {boolean}
    */
   get isToday() {
@@ -82,6 +83,7 @@ export class DayGridItem extends LitElement {
 
   /**
    * Returns the day grid that contains this day cell.
+   *
    * @returns {Element}
    */
   get grid() {
@@ -90,6 +92,7 @@ export class DayGridItem extends LitElement {
 
   /**
    * Returns true if the day cell is the first day of the month.
+   *
    * @returns {boolean}
    */
   get isFirstDayOfMonth() {
@@ -98,6 +101,7 @@ export class DayGridItem extends LitElement {
 
   /**
    * Returns true if the day cell is the last day of the month.
+   *
    * @returns {boolean}
    */
   get isLastDayOfMonth() {
@@ -108,6 +112,7 @@ export class DayGridItem extends LitElement {
 
   /**
    * Returns true if the day cell is the first day of the year.
+   *
    * @returns {boolean}
    */
   get isFirstDayOfYear() {
@@ -116,6 +121,7 @@ export class DayGridItem extends LitElement {
 
   /**
    * Returns true if the day cell is the last day of the year.
+   *
    * @returns {boolean}
    */
   get isLastDayOfYear() {
@@ -123,7 +129,9 @@ export class DayGridItem extends LitElement {
   }
 
   /**
-   * Returns true if the day cell is the first day of the week (according to the lang attr).
+   * Returns true if the day cell is the first day of the week (according to the
+   * lang attr).
+   *
    * @returns {boolean}
    */
   get isFirstDayOfWeek() {
@@ -136,6 +144,7 @@ export class DayGridItem extends LitElement {
 
   /**
    * Returns true if the day cell is the last day of the week.
+   *
    * @returns {boolean}
    */
   get isLastDayOfWeek() {
@@ -148,7 +157,8 @@ export class DayGridItem extends LitElement {
 
   /**
    * Returns true if the day cell is a weekend day (according to the lang attr).
-   * @returns {*|boolean}
+   *
+   * @returns {any | boolean}
    */
   get isWeekend() {
     const date = new Date(this.date)
@@ -159,6 +169,7 @@ export class DayGridItem extends LitElement {
 
   /**
    * Returns the formatted date of the day cell according to the language.
+   *
    * @returns {string}
    */
   get formattedDate() {
@@ -172,16 +183,18 @@ export class DayGridItem extends LitElement {
   }
 
   /**
-   * Keyboard navigation.
-   * When the day cell is focused, the following keys are supported:
+   * Keyboard navigation. When the day cell is focused, the following keys are
+   * supported:
+   *
    * - ArrowUp: Select the day cell above.
    * - ArrowDown: Select the day cell below.
    * - ArrowLeft: Select the day cell on the left.
    * - ArrowRight: Select the day cell on the right.
    * - Home: Select the first day cell of the month.
    * - End: Select the last day cell of the month.
-   * @param {KeyboardEvent} event
+   *
    * @private
+   * @param {KeyboardEvent} event
    */
   _onKeyDown(event) {
     switch (event.key) {
@@ -237,9 +250,7 @@ export class DayGridItem extends LitElement {
     }
   }
 
-  /**
-   * Updates additional attributes when the day cell is updated.
-   */
+  /** Updates additional attributes when the day cell is updated. */
   requestUpdate() {
     super.requestUpdate(...arguments)
 
