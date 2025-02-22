@@ -58,41 +58,6 @@ export class Translate extends HTMLElement {
   }
 }
 
-async function waitForSlots(element: HTMLElement) {
-  return new Promise<void>((resolve) => {
-    const checkSlots = () => {
-      const slots = element.querySelectorAll('slot') ?? []
-      if (slots.length === 0) return
-
-      let filledSlots = 0
-      slots.forEach((slot) => {
-        if (slot.assignedNodes().length > 0) {
-          filledSlots++
-        }
-        slot.addEventListener('slotchange', () => {
-          if (slot.assignedNodes().length > 0) {
-            filledSlots++
-          }
-          if (filledSlots === slots.length) {
-            resolve()
-          }
-        })
-      })
-
-      if (filledSlots === slots.length) {
-        resolve()
-      }
-    }
-
-    const observer = new MutationObserver(() => {
-      checkSlots()
-    })
-
-    observer.observe(element, { childList: true, subtree: true })
-    checkSlots()
-  })
-}
-
 export interface Translator {
   translate(phrase: string): string | null
 }
