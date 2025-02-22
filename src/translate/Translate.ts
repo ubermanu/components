@@ -15,7 +15,6 @@ export class Translate extends HTMLElement {
     // Replace placeholders with slot content
     const finalText = text.replace(/\{(.*?)\}/g, (_, name) => {
       const slot = this.querySelector(`[slot="${name}"]`)
-      console.log(name, slot)
       return slot?.textContent ?? `{${name}}`
     })
 
